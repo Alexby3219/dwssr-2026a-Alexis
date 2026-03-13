@@ -1,7 +1,7 @@
 # dwssr-2026a-Alexis
 proyecto de la materia de desarrollo web SSR  2026A ITGAM
 <p align="center">
-  <img src="./.github/assets/itgam.png" alt="ITGAM Cover" width="600">
+  <img src="./.github/assets/itgam.png" alt="itgma Cover" width="600">
 </p>
 
 <h1 align="center">dwssr-2026a</h1>
@@ -51,4 +51,4 @@ feat: ⭐ Agregar automatización de usuarios
 
 # 👩‍💻 Autor
 **Alexis Mora**  
-🔗 https://github.com/AlexisMora
+🔗 https://github.com/Alexby3219

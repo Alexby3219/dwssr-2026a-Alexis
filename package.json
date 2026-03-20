@@ -1,6 +1,7 @@
 {
   "name": "dwssr-2026a-alexis",
   "version": "0.0.0",
+  "type":"module",
   "private": true,
   "scripts": {
     "start": "DEBUG=dwssr-2026a-alexis:* node ./bin/www"

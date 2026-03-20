@@ -4,11 +4,18 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('dwssr-2026a-alexis:server');
-var info = require('debug')('dwssr-2026a-alexis:info');
-var http = require('http');
+//var app = require('../app');
+import app from '../app.js';
+//var debug = require('debug')('dwssr-2026a-alexis:server');
+import createDebug from 'debug';
 
+// var info = require('debug')('dwssr-2026a-alexis:info');
+
+// var http = require('http');
+import http from 'http';
+
+const debug = createDebug('dwssr-2026a-alexis:server');
+const info = createDebug('dwssr-2026a-alexis:info');
 /**
  * Get port from environment and store in Express.
  */

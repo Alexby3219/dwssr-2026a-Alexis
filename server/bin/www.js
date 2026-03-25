@@ -5,7 +5,7 @@
  */
 
 //var app = require('../app');
-import app from '../app.js';
+import app from '#server/app.js';
 //var debug = require('debug')('dwssr-2026a-alexis:server');
 import createDebug from 'debug';
 

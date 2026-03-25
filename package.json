@@ -2,6 +2,11 @@
   "name": "dwssr-2026a-alexis",
   "version": "0.0.0",
   "type": "module",
+  "imports": {
+    "#server/*.js": "./server/*.js",
+    "#routes/*.js": "./server/routes/*.js",
+    "#views/*.js": "./server/views/*.js"
+  },
   "private": true,
  "scripts": {
   "start": "nodemon ./server/bin/www.js"

@@ -7,7 +7,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Proyecto Aombroso ❤️' });
+  res.render('index', { title: 'Proyecto Aombroso precioso  ❤️' });
 });
 
 // module.exports = router;

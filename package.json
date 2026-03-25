@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
-  "scripts": {
-    "start": "DEBUG=dwssr-2026a-alexis:* nodemon ./bin/www"
-  },
+ "scripts": {
+  "start": "nodemon ./server/bin/www.js"
+}
+
+,
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

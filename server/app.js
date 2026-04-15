@@ -9,6 +9,9 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 // var logger = require('morgan');
 import logger from 'morgan';
+import hbs from 'hbs';
+
+
 // importar el router del autor
 // var indexRouter = require('./routes/index');
 import indexRouter from './routes/index.js';
@@ -16,6 +19,9 @@ import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 // var authorRouter = require('./routes/author');
 import authorRouter from './routes/author.js';
+
+//importar helpers de Vite
+import { registerViteHelper } from '#lib/vite.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,13 +32,22 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+//registrar el helpers para ENGINE 
+registerViteHelper(hbs);
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//ARCHIVOS ESTATICOS backend
 // Antes: app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname,'..', 'public')));
+
+//ARCHIVOS ESTATIVOS DE VITE 
+if (process.env.NODE_ENV === 'production') {
+  app.use('/dist', express.static(path.join(__dirname,'..', 'dist')));
+}
 
 
 app.use('/', indexRouter);

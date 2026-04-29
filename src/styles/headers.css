@@ -1,0 +1,34 @@
+/* --- secundario.css --- */
+
+/* 1. CLASES DE COMPONENTES PERSONALIZADOS */
+/* Aquí usamos @layer components para que Tailwind sepa que estas son 
+   clases reutilizables y las combine con DaisyUI */
+@layer components {
+  /* Ejemplo: Un botón personalizado combinando DaisyUI y Tailwind */
+  .btn-especial {
+    @apply btn bg-purple-600 text-white border-none hover:bg-purple-700 shadow-lg transition-all hover:scale-105;
+  }
+
+  /* Ejemplo: Una tarjeta que vas a usar mucho en tus vistas .hbs */
+  .tarjeta-dashboard {
+    @apply bg-base-100 shadow-xl rounded-2xl p-6 border border-base-300;
+  }
+}
+
+/* 2. UTILIDADES EXTRA O CSS TRADICIONAL */
+/* Cosas muy específicas que son difíciles de hacer solo con clases de Tailwind, 
+   como scrollbars personalizadas o animaciones complejas */
+@layer utilities {
+  .esconder-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .esconder-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* CSS puro si necesitas afectar etiquetas directamente (Cuidado de no romper DaisyUI) */
+html {
+  scroll-behavior: smooth;
+}

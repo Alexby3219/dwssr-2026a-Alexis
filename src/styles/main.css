@@ -1,7 +1,6 @@
+
+@import  "tailwindcss";
+@plugin "daisyui";
+/*esta linea define la ruta de las plantillas handlebards de modo que tailwindcss aportan los estilos*/
 /*estilos principales*/
-body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-h1 {
-    color: #00B7FF;
-}
+@source "../../server/views/**/*.hbs";

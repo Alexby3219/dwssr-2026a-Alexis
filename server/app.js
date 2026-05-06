@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 // var cookieParser = require('cookie-parser');
 import cookieParser from 'cookie-parser';
 // var logger = require('morgan');
-import logger from 'morgan';
+import morgan from 'morgan';
 import hbs from 'hbs';
 
 

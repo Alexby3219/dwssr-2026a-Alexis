@@ -1,0 +1,6 @@
+"singleQuote": false,
+"trailingComma": "all",
+// esta regla anade comas finales en todos los lugares posibles
+"tabWidth": 4
+"semi": true
+"printWidth": 80

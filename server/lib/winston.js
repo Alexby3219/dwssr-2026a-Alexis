@@ -5,16 +5,14 @@ import fs from 'node:fs';
 
 //importamos biblioteca de transporte
 import DailyRotateFile from 'winston-daily-rotate-file';
-import { error, info, time } from 'node:console';
 
-//Destructurando funciones fomat
+//Destructurando funciones format
 const { combine, 
     timestamp,
     label, 
     printf, 
     colorize, 
     prettyPrint } = format;
-
 
 //creamos directorio raiz
 const __rootDir = path.resolve(process.cwd());
@@ -24,6 +22,7 @@ const logDir = path.join(__rootDir, 'logs');
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir, { recursive: true });
 }
+
 // Definiendo esquema de colores 
 const colors = {
     error: 'red',
@@ -36,8 +35,8 @@ const colors = {
 //esquema de color a winston
 winston.addColors(colors);
 
-//creamos formatos de salida para los direfentes transportes
-const myConsoleformat = combine(
+//creamos formatos de salida para los diferentes transportes
+const myConsoleFormat = combine( 
     //AGREGANDO COLORES AL FORMATO
     colorize({ all: true }),
     // AGREGANDO UNA ETIQUETA A LOG 
@@ -46,7 +45,7 @@ const myConsoleformat = combine(
     timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     //AGREGANDO UN FORMATO PERSONALIZADO
     printf(info => `${info.timestamp} ${info.label} ${info.level}: ${info.message}`)
-    );
+);
 
 const myFileFormat = combine(
     format.uncolorize(),
@@ -55,12 +54,56 @@ const myFileFormat = combine(
 );
 
 //creando transportes
+// Creando el objeto de opciones para cada transporte
 const options = {
-    errorFile: {
-        level: 'error',
-        filename: path.join(__rootDir, "logs", "error-%DATE%.log"),
-        datePattern: 'YYYY-MM-DD',
-        maxSize: '1048576',
-        format: myFileFormat
-}
+  errorFile: {
+    level: "error",
+    filename: path.join(__rootDir, "logs", "error.log"), 
+    maxsize: 5242880, // 5MB
+    maxFiles: 5,
+    format: myFileFormat,
+  },
+  console: {
+    level: "debug",
+    handleExceptions: true,
+    format: myConsoleFormat, 
+  },
+  readableFile: {
+    filename: path.join(logDir, "app-readable.log"), 
+    level: "info",
+    format: combine(
+      format.uncolorize(),
+      timestamp({ format: "DD-MM-YYYY HH:mm:ss" }),
+      prettyPrint(),
+    ),
+    maxsize: 5242880,
+    maxFiles: 5,
+  },
+  dailyRotateFile: {
+    filename: path.join(logDir, "app-%DATE%.log"), 
+    datePattern: "YYYY-MM-DD",
+    zippedArchive: true,
+    maxSize: "20m",
+    maxFiles: "14d",
+    level: "info",
+    format: myFileFormat,
+  },
 };
+
+//instancia de logger 
+const logger = winston.createLogger({
+    transports: [
+        new DailyRotateFile(options.dailyRotateFile), 
+        new winston.transports.File(options.readableFile),
+        new winston.transports.File(options.errorFile),
+        new winston.transports.Console(options.console)
+    ],
+    exceptionHandlers: [
+        new winston.transports.File({
+            filename: path.join(logDir, "rejections.log") 
+        })
+    ],
+    exitOnError: false
+});
+
+export default logger;

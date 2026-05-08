@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 // var logger = require('morgan');
 import morgan from 'morgan';
+import logger from './lib/winston.js';
 import hbs from 'hbs';
 
 
@@ -23,6 +24,7 @@ import authorRouter from './routes/author.js';
 //importar helpers de Vite
 import { registerViteHelper } from '#lib/vite.js';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -35,7 +37,12 @@ app.set('view engine', 'hbs');
 //registrar el helpers para ENGINE 
 registerViteHelper(hbs);
 
-app.use(logger('dev'));
+// Usamos morgan y le decimos que envíe sus mensajes a nuestro logger (Winston)
+app.use(morgan('dev', {
+  stream: {
+    write: (message) => logger.http(message.trim())
+  }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
